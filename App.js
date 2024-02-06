@@ -1,11 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import FoodBankHome from './components/FoodBankHome';
 
 export default function App() {
-  return (
+  return ( 
     <View style={styles.container}>
-      <Text>Starting page for CS 440 Project - Community Bite</Text>
-      <StatusBar style="auto" />
+      <FoodBankHome />
     </View>
   );
 }
