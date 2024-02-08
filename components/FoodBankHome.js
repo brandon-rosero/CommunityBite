@@ -1,13 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
-import Header from './Header';
+import Navigation from './NavigationFoodBank';
 
 const FoodBankHome = () => {
-    return(
 
-        <View>
-            <Header />
-        </View>
+    return(
+    
+        <Text>Home</Text>
 
     )
 }
