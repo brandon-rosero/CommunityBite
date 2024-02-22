@@ -50,13 +50,6 @@ const styles = StyleSheet.create({
         left: 30
 
     },
-    settingsIcon: {
-        
-        height: 24,
-        width: 24,
-        right: 30
- 
-    },
     
 })
 
