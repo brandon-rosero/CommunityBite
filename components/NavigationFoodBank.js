@@ -1,21 +1,42 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {createDrawerNavigator} from '@react-navigation/drawer'
 import Messages from '../screens/Messages'
 import Forum from '../screens/Forum'
 import FoodBankHome from './FoodBankHome'
 import ViewDonors from '../screens/viewDonors';
+import Profile from '../screens/Profile'
+import Settings from '../screens/Settings'
 
+const Drawer = createDrawerNavigator()
+const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
+
+function Drawers() {
+
+    return (
+
+        <Drawer.Navigator>
+            
+            <Drawer.Screen name="Home" component={FoodBankHome} options={{headerShown:true}} />
+            <Drawer.Screen name="Profile" component={Profile} options={{headerShown:true}} />
+            <Drawer.Screen name="Settings" component={Settings} options={{headerShown:true}} />
+            
+        </Drawer.Navigator>
+
+    )
+
+}
 
 function Tabs(){
 
     return (
-    
+        
         <Tab.Navigator screenOptions={({route}) => ({
             tabBarIcon: () => {
-                
                 if(route.name === 'Messages'){
 
                     return <Image source={require('../assets/messagesIcon.png')} style={styles.barIcon}/>
@@ -25,9 +46,15 @@ function Tabs(){
 
                     return <Image source={require('../assets/forumIcon.png')} style={styles.barIcon}/>
 
-                }else if(route.name === 'View Donors'){
+                }
+                else if(route.name === 'View Donors'){
 
                     return <Image source={require('../assets/viewDonorsIcon.png')} style={styles.barIcon}/>
+
+                }
+                else if(route.name === 'Home'){
+
+                    return <Image source={require('../assets/homepage.png')} style={styles.barIcon}/>
 
                 }
             },
@@ -39,16 +66,13 @@ function Tabs(){
             },
             tabBarActiveTintColor: 'white',
             tabBarInactiveTintColor: 'black',
-            headerStyle:{
-
-                height: 115
-
-            }
+            
    
         })}>
-            <Tab.Screen name="Messages" component={Messages} options={headerOptions}/>
-            <Tab.Screen name="View Donors" component={ViewDonors} options={headerOptions}/>
-            <Tab.Screen name="Forum" component={Forum} options={headerOptions}/>
+            <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
+            <Tab.Screen name="Messages" component={Messages} />
+            <Tab.Screen name="View Donors" component={ViewDonors} />
+            <Tab.Screen name="Forum" component={Forum} />
         </Tab.Navigator>
 
     )
@@ -56,7 +80,7 @@ function Tabs(){
 }
 
 const Navigation = () => {
-
+    
     return(
         
         <NavigationContainer>
@@ -64,13 +88,12 @@ const Navigation = () => {
         </NavigationContainer>
 
     )
-
+ 
 }
 
+
 const headerOptions = {
-    headerTitle: () => <Image source={require('../assets/logo.png')} style={styles.logo}/>,
-    headerLeft: () => <Image source={require('../assets/userIcon.png')} style={styles.userIcon}/>,
-    headerRight: () => <Image source={require('../assets/settingsIcon.png')} style={styles.settingsIcon}/>
+    headerShown:false,
 
 }
 
