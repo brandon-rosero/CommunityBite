@@ -1,10 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
     
-    const messages = ['message1','message2','message3','message4','message5','message6','message7','message8','message9','message10']
-    
+    const navigation = useNavigation();
+
+    useLayoutEffect(() => {
+
+        navigation.setOptions({
+
+            headerLeft: () => (
+
+                <Pressable onPress={() => navigation.openDrawer()}>
+                    <Image source={require('../assets/userIcon.png')} style={styles.userIcon}/>
+                </Pressable>
+
+            ),
+            
+            headerStyle:{
+
+                height: 125,
+        
+            }
+
+        })
+
+    }, [])
+
     return(
 
         <Text>profile</Text>
@@ -14,6 +37,13 @@ const Profile = () => {
 
 const styles = StyleSheet.create({
 
+    userIcon: {
+
+        height: 24,
+        width: 24,
+        left: 30
+
+    },
 
 })
 
