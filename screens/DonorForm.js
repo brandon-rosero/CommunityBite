@@ -1,15 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
-const Forum = () => {
+const DonorForm = () => {
      
     return(
         
         <View>
-            <Text>forum</Text>
+            <Text>Donor form goes here</Text>
         </View>
 
     )
 }
 
-export default Forum
+export default DonorForm
