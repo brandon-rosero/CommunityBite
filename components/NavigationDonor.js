@@ -12,6 +12,7 @@ import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'
 import LoginScreen from '../screens/LoginScreen.js'
 import SignUpScreen from '../screens/SignUpScreen.js'
+import DonorHome from './DonorHome';
 
 const Stack = createNativeStackNavigator()
 
@@ -21,7 +22,7 @@ function StackScreens() {
 
         <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}} />
-            <Stack.Screen name="Home" component={FoodBankHome} options={{headerShown:false}} />
+            <Stack.Screen name="Home" component={DonorHome} options={{headerShown:false}} />
             <Stack.Screen name="Sign Up" component={SignUpScreen} options={{headerShown:false}} />
         </Stack.Navigator>
 
