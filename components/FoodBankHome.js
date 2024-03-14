@@ -10,6 +10,7 @@ import ViewDonors from '../screens/viewDonors';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
 import DonorForm from '../screens/DonorForm';
+import Form from '../screens/Form'
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -76,7 +77,7 @@ const FoodBankHome = () => {
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
             <Tab.Screen name="Messages" component={Messages} />
-            <Tab.Screen name="View Donors" component={DonorForm} />
+            <Tab.Screen name="View Donors" component={Form} />
             <Tab.Screen name="Forum" component={Forum} />
         </Tab.Navigator>       
 

@@ -12,6 +12,8 @@ import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'
 import LoginScreen from '../screens/LoginScreen.js'
 import SignUpScreen from '../screens/SignUpScreen.js'
+import {useContext} from 'react'
+import {globalContext} from '../globalContext.js'
 
 const Stack = createNativeStackNavigator()
 

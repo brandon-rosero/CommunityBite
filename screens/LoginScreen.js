@@ -1,13 +1,15 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useContext } from 'react'
 import { StyleSheet, Text, View, Image, Pressable, Button, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavigationFoodBank from '../components/NavigationFoodBank'
 import { useForm, Controller } from 'react-hook-form'
+import {globalContext} from '../globalContext.js'
 
 
 const LoginScreen = () => {
 
     const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const {username, setUsername} = useContext(globalContext)
 
     const onSubmit = (data) => {
 
