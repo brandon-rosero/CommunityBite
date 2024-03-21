@@ -4,15 +4,15 @@ import FoodBankHome from './components/FoodBankHome';
 import NavigationFoodBank from './components/NavigationFoodBank';
 import NavigationDonor from './components/NavigationDonor'
 import {useState, React} from "react"
-import {globalContext} from "./globalContext"
+import {GlobalProvider} from "./globalContext"
 
 function App() {
   const [username, setUsername] = useState("");
   
   return ( 
-    <globalContext.Provider value ={{username, setUsername}}>
+    <GlobalProvider>
       <NavigationFoodBank />
-    </globalContext.Provider>
+    </GlobalProvider>
   );
 }
 

@@ -1,8 +1,12 @@
 import React, { useState, useLayoutEffect } from 'react'
 import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useGlobalState } from '../globalContext';
 
 const Profile = () => {
+
+    const [state, dispatch] = useGlobalState(); // Global state
+    const [usernameText, setUsernameText] = useState(state.username) // Stores username text
     
     const navigation = useNavigation();
 
@@ -30,7 +34,8 @@ const Profile = () => {
 
     return(
 
-        <Text>profile</Text>
+        //<Text>profile</Text>
+        <Text>{usernameText}</Text> // Display username from globalContext.js
 
     )
 }

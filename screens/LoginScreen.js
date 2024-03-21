@@ -3,17 +3,19 @@ import { StyleSheet, Text, View, Image, Pressable, Button, TextInput } from 'rea
 import { useNavigation } from '@react-navigation/native';
 import NavigationFoodBank from '../components/NavigationFoodBank'
 import { useForm, Controller } from 'react-hook-form'
-import {globalContext} from '../globalContext.js'
+//import {globalContext} from '../globalContext.js'
+import { useGlobalState } from '../globalContext';
 
 
 const LoginScreen = () => {
 
+    const [state, dispatch] = useGlobalState();
     const { register, handleSubmit, control, formState: { errors } } = useForm();
-    const {username, setUsername} = useContext(globalContext)
 
     const onSubmit = (data) => {
 
         //data.email, data.password
+        dispatch({username: data.email})    // Update global state's username (username = data.email)
 
         alert(JSON.stringify(data));
         

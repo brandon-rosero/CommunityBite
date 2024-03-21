@@ -1,7 +1,32 @@
-import {createContext} from 'react'
+//import {createContext, useState, useContext} from 'react'
+import * as React from 'react'
 
-const initialState = {
+const globalState = {
     username: ""
 };
 
-export const globalContext = createContext("")
+const GlobalContext = React.createContext(globalState)
+const DispatchGlobalContext = React.createContext(undefined)
+
+function GlobalProvider({children}){
+    //const [username, setUserName] = useState("");
+    const [state, dispatch] = React.useReducer(
+        (state, newValue) => ({ ...state, ...newValue }),
+        globalState
+    );
+
+    return(
+        <GlobalContext.Provider value={state}>
+            <DispatchGlobalContext.Provider value={dispatch}>
+                {children}
+            </DispatchGlobalContext.Provider>
+        </GlobalContext.Provider>
+    );
+};
+
+const useGlobalState = () => [
+    React.useContext(GlobalContext),
+    React.useContext(DispatchGlobalContext)
+];
+
+export {GlobalContext, DispatchGlobalContext, GlobalProvider, useGlobalState}
