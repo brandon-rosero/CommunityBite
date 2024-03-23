@@ -47,7 +47,7 @@ const FoodBankHome = () => {
                     return <Image source={require('../assets/forumIcon.png')} style={styles.barIcon}/>
 
                 }
-                else if(route.name === 'View Donors'){
+                else if(route.name === 'Nearby Donors'){
 
                     return <Image source={require('../assets/viewDonorsIcon.png')} style={styles.barIcon}/>
 
@@ -77,7 +77,7 @@ const FoodBankHome = () => {
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
             <Tab.Screen name="Messages" component={Messages} />
-            <Tab.Screen name="View Donors" component={Form} />
+            <Tab.Screen name="Nearby Donors" component={ViewDonors} />
             <Tab.Screen name="Forum" component={Forum} />
         </Tab.Navigator>       
 

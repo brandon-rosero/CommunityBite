@@ -9,7 +9,9 @@ import Forum from '../screens/Forum'
 import ViewDonors from '../screens/viewDonors';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
+import DonationForm from '../screens/Form'
 import DonorForm from '../screens/DonorForm';
+import { Form } from 'react-hook-form';
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -76,7 +78,7 @@ const DonorHome = () => {
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
             <Tab.Screen name="Messages" component={Messages} />
-            <Tab.Screen name="Donate" component={DonorForm} />
+            <Tab.Screen name="Donate" component={DonationForm} />
             <Tab.Screen name="Forum" component={Forum} />
         </Tab.Navigator>       
 
