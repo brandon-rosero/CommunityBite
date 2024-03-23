@@ -14,8 +14,8 @@ const LoginScreen = () => {
 
     const onSubmit = (data) => {
 
-        //data.email, data.password
-        dispatch({username: data.email})    // Update global state's username (username = data.email)
+        //data.email, data.password, data.selectedUserType
+        dispatch({username: data.email, userType: data.selectedUserType})    // Update global state's username (username = data.email, ...)
 
         alert(JSON.stringify(data));
         
@@ -78,6 +78,27 @@ const LoginScreen = () => {
                         rules={{required: "Please input a password", maxLength: 10}}
                     />
                 </View>
+
+                <Controller 
+                control={control}
+                render={({field: {onChange, onBlur, value}}) => (
+                    <View>
+                    <Text style={styles.label}>Select User Type:</Text>
+                    <View style={styles.radioContainer}>
+                        <Pressable style={styles.radioOption} onPress={() => onChange('donor')}>
+                        <Text>Food Donor</Text>
+                        {value === 'donor' && <View style={styles.radioDot} />}
+                        </Pressable>
+                        <Pressable style={styles.radioOption} onPress={() => onChange('bank')}>
+                        <Text>Food Bank</Text>
+                        {value === 'bank' && <View style={styles.radioDot} />}
+                        </Pressable>
+                    </View>
+                    </View>
+                )}
+                name="selectedUserType"
+                defaultValue="donor"
+                />
                 
                 <Text onPress={handleSubmit(onSubmit)} style={styles.loginTextButton}>Log in</Text>
                 <Text style={styles.signInText}>Don't have an account? <Text onPress={() => navigation.navigate('Sign Up')} style = {styles.signUpText}>Sign up</Text> </Text>
@@ -163,7 +184,23 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 0
 
-    }
+    },
+    // radioContainer: {
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-between',
+    //     marginBottom: 10,
+    // },
+    radioOption: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    radioDot: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: 'black',
+        marginLeft: 5,
+      }
 
 
 })

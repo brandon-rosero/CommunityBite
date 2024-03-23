@@ -2,7 +2,8 @@
 import * as React from 'react'
 
 const globalState = {
-    username: ""
+    username: "",
+    userType: ""
 };
 
 const GlobalContext = React.createContext(globalState)

@@ -7,6 +7,7 @@ const Profile = () => {
 
     const [state, dispatch] = useGlobalState(); // Global state
     const [usernameText, setUsernameText] = useState(state.username) // Stores username text
+    const [userTypeText, setUserTypeText] = useState(state.userType) // Stores user type text
     
     const navigation = useNavigation();
 
@@ -35,8 +36,7 @@ const Profile = () => {
     return(
 
         //<Text>profile</Text>
-        <Text>{usernameText}</Text> // Display username from globalContext.js
-
+        <Text>Username: {usernameText}, User type: {userTypeText}</Text> // Display username from globalContext.js
     )
 }
 
