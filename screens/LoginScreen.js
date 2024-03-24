@@ -19,7 +19,16 @@ const LoginScreen = () => {
 
         alert(JSON.stringify(data));
         
-        navigation.navigate('Home')
+        if(data.selectedUserType == "donor"){
+            navigation.navigate('DonorHome')
+        }
+        else if(data.selectedUserType == "bank"){
+            navigation.navigate('FoodBankHome')
+        }
+        else{
+            alert("ERROR: Cannot determine user type");
+        }
+        
 
     }
 

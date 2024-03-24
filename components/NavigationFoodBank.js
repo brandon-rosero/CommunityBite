@@ -7,6 +7,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer'
 import Messages from '../screens/Messages'
 import Forum from '../screens/Forum'
 import FoodBankHome from './FoodBankHome'
+import DonorHome from './DonorHome'
 import ViewDonors from '../screens/viewDonors';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'
@@ -23,7 +24,8 @@ function StackScreens() {
 
         <Stack.Navigator>
             <Stack.Screen name="Login" component={LoginScreen} options={{headerShown:false}} />
-            <Stack.Screen name="Home" component={FoodBankHome} options={{headerShown:false}} />
+            <Stack.Screen name="FoodBankHome" component={FoodBankHome} options={{headerShown:false}} />
+            <Stack.Screen name="DonorHome" component={DonorHome} options={{headerShown:false}} />
             <Stack.Screen name="Sign Up" component={SignUpScreen} options={{headerShown:false}} />
         </Stack.Navigator>
 
@@ -42,7 +44,5 @@ const Navigation = () => {
     )
  
 }
-
-
 
 export default Navigation

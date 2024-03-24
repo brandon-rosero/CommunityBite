@@ -8,22 +8,42 @@
 import { db } from './firebaseConfig.js'
 import { collection, addDoc, getDocs } from "firebase/firestore"
 
-// addDonation() - Adds a document to the 'foodListings' collection.
+// addFoodListing() - Adds a document to the 'foodListings' collection.
 // Parameter(s): string _productName, int _quantity, string _location
 // Return value(s): N/A
-export async function addFoodListing(_productName, _quantity, _location){
-    const doc = await addDoc(collection(db, "foodListings"), {
-        productName: _productName,
-        quantity: _quantity,
-        location: _location
-      })
-      .then(function() {
-        console.log("Product added!");
-      })
-      .catch(function(error){
-        console.error("Error writing document for foodListings: ", error);
-      });
+export async function addFoodListing(_fullname, _phonenumber, _donationtype, _address, _latitude, _longitude, _donationmethod, _listofitems){
+  const doc = await addDoc(collection(db, "foodListings"), {
+      fullname: _fullname,
+      phonenumber: _phonenumber,
+      donationtype: _donationtype,
+      address: _address,
+      latitude: _latitude,
+      longitude: _longitude,
+      donationmethod: _donationmethod,
+      listofitems: _listofitems
+    })
+    .then(function() {
+      console.log("Product added!");
+      return 1; // Indicate success
+    })
+    .catch(function(error){
+      console.error("Error writing document for foodListings: ", error);
+      return -1;  // Indicate error
+    });
 }
+// export async function addFoodListing(_productName, _quantity, _location){
+//     const doc = await addDoc(collection(db, "foodListings"), {
+//         productName: _productName,
+//         quantity: _quantity,
+//         location: _location
+//       })
+//       .then(function() {
+//         console.log("Product added!");
+//       })
+//       .catch(function(error){
+//         console.error("Error writing document for foodListings: ", error);
+//       });
+// }
 
 // getFoodListings() - Retrieves all entries in 'foodListings'
 // Parameter(s): N/A

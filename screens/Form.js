@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+import { addFoodListing } from "../database.js"
 
 const DonationForm = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -8,11 +9,26 @@ const DonationForm = () => {
   const onSubmit = (data) => {
     console.log(data);
     // You can handle form submission logic here
+
+    // Attempt to add food listing. Returns 1 if successful.
+    async function addDonation(){ 
+      const rc = await addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList)
+      return rc
+    }
+
+    returnCode = addDonation();
+    console.log("Return Code: ", returnCode);
+    if(returnCode == 1){
+      alert("Added donation!");
+    }
+    else{
+      alert("ERROR: addFoodListing function didn't end properly.")
+    }
   };
 
   return (
     <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
-      <View style={styles.loginContainer}>
+      <ScrollView contentContainerstyle={styles.loginContainer}>
         <View style={styles.textContainer}>
           <Image source={require('../assets/logo.png')} style={styles.logo}/>
         </View>
@@ -63,6 +79,48 @@ const DonationForm = () => {
           <Controller 
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
+              <TextInput 
+                placeholder='Address' 
+                style={styles.input} 
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              /> 
+            )}
+            name="address"
+            rules={{required: "Please input the address"}}
+          />
+          <Controller 
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput 
+                placeholder='Latitude' 
+                style={styles.input} 
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              /> 
+            )}
+            name="latitude"
+            rules={{required: "Please input latitude coordinate"}}
+          />
+          <Controller 
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextInput 
+                placeholder='Longitude' 
+                style={styles.input} 
+                onBlur={onBlur}
+                onChangeText={value => onChange(value)}
+                value={value}
+              /> 
+            )}
+            name="longitude"
+            rules={{required: "Please input longitude coordinate"}}
+          />
+          <Controller 
+            control={control}
+            render={({field: {onChange, onBlur, value}}) => (
               <View>
                 <Text style={styles.label}>Select Donation Method:</Text>
                 <View style={styles.radioContainer}>
@@ -98,7 +156,7 @@ const DonationForm = () => {
         <Pressable onPress={handleSubmit(onSubmit)} style={styles.button}>
           <Text style={styles.buttonText}>Submit</Text>
         </Pressable>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -156,6 +214,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
   },
+  coordinatesContainer:{
+    flexDirection: 'row',
+    marginBottom: 10,
+  }
 });
 
 export default DonationForm;
