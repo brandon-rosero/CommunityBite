@@ -1,5 +1,6 @@
-//import {createContext, useState, useContext} from 'react'
+import {createContext, useState, useContext} from 'react'
 import * as React from 'react'
+import * as Location from 'expo-location';
 
 const globalState = {
     username: "",
@@ -11,6 +12,7 @@ const DispatchGlobalContext = React.createContext(undefined)
 
 function GlobalProvider({children}){
     //const [username, setUserName] = useState("");
+
     const [state, dispatch] = React.useReducer(
         (state, newValue) => ({ ...state, ...newValue }),
         globalState
