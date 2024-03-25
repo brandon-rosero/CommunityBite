@@ -10,20 +10,12 @@ const DonationForm = () => {
     console.log(data);
     // You can handle form submission logic here
 
-    // Attempt to add food listing. Returns 1 if successful.
-    async function addDonation(){ 
-      const rc = await addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList)
-      return rc
-    }
-
-    returnCode = addDonation();
-    console.log("Return Code: ", returnCode);
-    if(returnCode == 1){
-      alert("Added donation!");
-    }
-    else{
-      alert("ERROR: addFoodListing function didn't end properly.")
-    }
+    // Attempt to add food listing.
+    addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList).then(result => {
+      alert("Food listing added!");
+    }).catch(error => {
+      alert("Error in adding food listing...");
+    });
   };
 
   return (

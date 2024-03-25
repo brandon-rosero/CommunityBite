@@ -24,11 +24,13 @@ export async function addFoodListing(_fullname, _phonenumber, _donationtype, _ad
     })
     .then(function() {
       console.log("Product added!");
-      return 1; // Indicate success
+      //return 1; // Indicate success
+      return Promise.resolve("Added project!")
     })
     .catch(function(error){
       console.error("Error writing document for foodListings: ", error);
-      return -1;  // Indicate error
+      //return -1;  // Indicate error
+      return Promise.error("Error in adding project...")
     });
 }
 // export async function addFoodListing(_productName, _quantity, _location){
