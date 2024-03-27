@@ -12,6 +12,7 @@ import { collection, addDoc, getDocs } from "firebase/firestore"
 // Parameter(s): string _productName, int _quantity, string _location
 // Return value(s): N/A
 export async function addFoodListing(_fullname, _phonenumber, _donationtype, _address, _latitude, _longitude, _donationmethod, _listofitems){
+  returnValue = ""
   const doc = await addDoc(collection(db, "foodListings"), {
       fullname: _fullname,
       phonenumber: _phonenumber,
@@ -22,49 +23,44 @@ export async function addFoodListing(_fullname, _phonenumber, _donationtype, _ad
       donationmethod: _donationmethod,
       listofitems: _listofitems
     })
-    .then(function() {
+    .then(function(result) {
       console.log("Product added!");
       //return 1; // Indicate success
-      return Promise.resolve("Added project!")
+      //return Promise.resolve("Added project!")
+      returnValue = "Added food listing!"
     })
     .catch(function(error){
       console.error("Error writing document for foodListings: ", error);
       //return -1;  // Indicate error
-      return Promise.error("Error in adding project...")
+      //return Promise.reject("Error in adding project...")
+      returnValue = "Error in adding food listing..."
     });
+
+    // Return data here
+    return returnValue
 }
-// export async function addFoodListing(_productName, _quantity, _location){
-//     const doc = await addDoc(collection(db, "foodListings"), {
-//         productName: _productName,
-//         quantity: _quantity,
-//         location: _location
-//       })
-//       .then(function() {
-//         console.log("Product added!");
-//       })
-//       .catch(function(error){
-//         console.error("Error writing document for foodListings: ", error);
-//       });
-// }
 
 // getFoodListings() - Retrieves all entries in 'foodListings'
 // Parameter(s): N/A
 // Return Value(s): 2D-array of food listings.
 export async function getFoodListings(){ 
   foodListingArray = [] // Stores food listing entries in an array.
+
   console.log("-- FOOD LISTINGS -- ")
   const querySnapshot = await getDocs(collection(db, "foodListings"));  // Get QuerySnapshot of 'foodListings'
     querySnapshot.forEach((doc) =>{ // Print each food listing to console.
-      // Store document data into local variables
-      productName = doc.data().productName
-      quantity = doc.data().quantity
-      location = doc.data().location
-      // Display values to console
-      console.log("- Product Name:", productName, "| Quantity:", quantity, "| Location:", location)
+      // Store document data into local variables (can add more later)
+      phoneNumber = doc.data().phonenumber
+      fullName = doc.data().fullname
+      latitude = doc.data().latitude
+      longitude = doc.data().longitude
+      
       // Add entry to the food listing array
-      foodListingArray.push([productName, quantity, location])
+      foodListingArray.push([latitude, longitude, fullName, phoneNumber])
     });
-    //return foodListingArray   // Return array
+    // Display listings
+    foodListingArray.forEach(element => console.log(element))
+    return foodListingArray   // Return array
 }
 
 // addForumPost() - Add message to 'forumMessages' collection.

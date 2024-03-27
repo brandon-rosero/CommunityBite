@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { addFoodListing } from "../database.js"
+import { addFoodListing, getFoodListings } from "../database.js"
 
 const DonationForm = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -11,12 +11,25 @@ const DonationForm = () => {
     // You can handle form submission logic here
 
     // Attempt to add food listing.
-    addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList).then(result => {
-      alert("Food listing added!");
-    }).catch(error => {
-      alert("Error in adding food listing...");
+    addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList).then(function(result){
+      //alert("Food listing added!");
+      console.log(result)
+      alert(JSON.stringify(result));
+    }).catch(function(error){
+      alert("Error in adding food listing...", error);
     });
   };
+
+  // const addCoordinates = () => {
+  //   console.log("Calling addCoordinates")
+  //   foodListingArray = []
+  //   getFoodListings().then(function(result){
+  //       foodListingArray = result
+  //       foodListingArray.forEach(element => console.log(element))
+  //   }).catch(function(error){
+  //       console.log(error)
+  //   });
+  // }
 
   return (
     <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
@@ -152,6 +165,8 @@ const DonationForm = () => {
     </View>
   );
 };
+
+//<Pressable onPress={handleSubmit(onSubmit)} style={styles.button}>
 
 const styles = StyleSheet.create({
   logo: {

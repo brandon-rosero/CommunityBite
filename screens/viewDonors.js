@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as geoLib from 'geolib'
+import { getFoodListings } from "../database.js"
 
 const ViewDonors = () => {
     
@@ -15,6 +16,19 @@ const ViewDonors = () => {
     
     let lat = 0
     let long = 0
+    
+    // Function getMarkers() - Retrieves all food listings from the database.
+    //   const getMarkers = () => {
+    //   console.log("Calling getMarkers")
+    //   foodListingArray = []
+    //   getFoodListings().then(function(result){
+    //       // Each element in foodListingArray is contained in an array: [latitude, longitude, fullName, phoneNumber]
+    //       foodListingArray = result
+    //       foodListingArray.forEach(element => console.log(element))
+    //   }).catch(function(error){
+    //       console.log(error)
+    //   });
+    // }
 
     useEffect(() => {
 
@@ -53,7 +67,7 @@ const ViewDonors = () => {
     }
 
     return(
-
+    
         <View style={styles.mapContainer}>
             <MapView 
                 style={styles.mapStyle} 
