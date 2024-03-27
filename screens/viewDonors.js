@@ -105,7 +105,7 @@ const ViewDonors = () => {
             />
             </MapView>
             <View style={styles.locationsList}>
-                <Text>{lat}</Text>
+                <Text>{}</Text>
             </View>
                   
         </View>
@@ -124,12 +124,12 @@ const styles = StyleSheet.create({
             height: 0   
         },
         shadowRadius: 2,
-        height: "100%",
+        //height: "100%",
         
     },
     mapStyle: {
         width: '100%',
-        height: 350,
+        height: "60%",
         borderRadius: 20,
         
 
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         width: '100%',
-        height: 247,
+        height: "38.5%",
         marginTop: 10,
         alignItems: "center",
        
