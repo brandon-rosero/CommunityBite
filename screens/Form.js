@@ -143,22 +143,6 @@ const DonationForm = () => {
             name="donationMethod"
             defaultValue="nearby"
           />
-          {donationMethod === 'direct' && (
-            <Controller 
-              control={control}
-              render={({field: {onChange, onBlur, value}}) => (
-                <TextInput 
-                  placeholder='Food Bank Name' 
-                  style={styles.input} 
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                /> 
-              )}
-              name="foodBankName"
-              rules={{required: "Please input the food bank's name"}}
-            />
-          )}
           <Controller 
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
