@@ -9,6 +9,7 @@ import Forum from '../screens/Forum'
 import ViewDonors from '../screens/viewDonors';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
+import Home from '../screens/Home'
 import DonationForm from '../screens/Form'
 import DonorForm from '../screens/DonorForm';
 import { Form } from 'react-hook-form';
@@ -23,12 +24,23 @@ function Drawers() {
 
         <Drawer.Navigator>
 
-            <Drawer.Screen name="Profile" component={Profile} options={{headerShown:true}} />
+            <Drawer.Screen name="Home" component={Home} options={{headerShown:true}} />
             <Drawer.Screen name="Settings" component={Settings} options={{headerShown:true}} />
             
         </Drawer.Navigator>
 
     )
+
+    // return (
+
+    //     <Drawer.Navigator>
+
+    //         <Drawer.Screen name="Profile" component={Profile} options={{headerShown:true}} />
+    //         <Drawer.Screen name="Settings" component={Settings} options={{headerShown:true}} />
+            
+    //     </Drawer.Navigator>
+
+    // )
 
 }
 
