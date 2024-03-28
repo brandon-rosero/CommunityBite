@@ -11,11 +11,15 @@ const ViewDonors = () => {
     const [location, setLocation] = useState();
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
-    const testMarkers = [{latitude: 37.796586, longitude: -122.408054}, {latitude: 37.792264, longitude: -122.425848}, {latitude: 37.805435053804175, longitude: -122.28586767156946}, 
-        {latitude: 37.775806062819306, longitude: -122.40952275399093}]
+    const testMarkers = [
+        {latitude: 41.874489, longitude: -87.650581, address: "940 W Harrison St, Chicago, IL 60607", name: "Rob Johnson"},  // UIC ARC
+        {latitude: 41.864510, longitude: -87.647070, address: "1328 S Halsted St, Chicago, IL 60608", name: "Melissa Miles"},  // University Village Starbucks
+        {latitude: 41.867970, longitude: -87.642090, address: "1141 S Jefferson St, Chicago, IL 60607", name: "Bob Jones"} // Manny's Cafeteria & Delicatessen
+    ]
+    //const testMarkers = [{latitude: 37.796586, longitude: -122.408054}, {latitude: 37.792264, longitude: -122.425848}, {latitude: 37.805435053804175, longitude: -122.28586767156946}, {latitude: 37.775806062819306, longitude: -122.40952275399093}]
     
-    let lat = 0
-    let long = 0
+    let lat = 41.871300
+    let long = -87.649230
     
     // Function getMarkers() - Retrieves all food listings from the database.
     //   const getMarkers = () => {
@@ -52,16 +56,11 @@ const ViewDonors = () => {
     }, [location])
 
     if(errorMsg){
-
         console.log("Error!");
-
     }
     else if(latitude && longitude){
-
         lat = latitude
         long = longitude
-        
-
     }
 
     return(
@@ -89,8 +88,7 @@ const ViewDonors = () => {
 
                 <Marker 
                     coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                    title={"marker"}
-
+                    title = {marker.name}
                 /> : null
                 
 
@@ -103,7 +101,12 @@ const ViewDonors = () => {
             />
             </MapView>
             <View style={styles.locationsList}>
-                <Text>{}</Text>
+                {testMarkers.map((marker, index) => 
+                    <View style={styles.foodListingContainer}>
+                        <Text>{index+1}. {marker.name} - {marker.address}</Text>
+                        <Text>{geoLib.getDistance({latitude: lat, longitude: long}, {latitude: marker.latitude, longitude: marker.longitude})} meters away</Text>
+                    </View>
+                )}
             </View>
                   
         </View>
@@ -141,6 +144,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         alignItems: "center",
        
+    },
+    foodListingContainer: {
+        marginTop: 10,
     }
 
 })
