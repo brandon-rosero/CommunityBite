@@ -1,14 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 
-const UserMessage = () => {
-
+const UserMessage = (message) => {
     return(
-    
         <View style={styles.userMessageContainer}>
-            <Text>Message</Text>
+            <Text>message</Text>
         </View>
-    
     )
 }
 

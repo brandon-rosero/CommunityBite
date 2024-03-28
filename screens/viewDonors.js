@@ -40,13 +40,11 @@ const ViewDonors = () => {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }
-
             let currentLocation = await Location.getCurrentPositionAsync({})
             setLocation(currentLocation);
             setLatitude(currentLocation.coords.latitude);
             setLongitude(currentLocation.coords.longitude);
             //console.log(location)
-            
         }
 
         getPermissions();

@@ -8,8 +8,6 @@ const DonationForm = () => {
   
   const onSubmit = (data) => {
     console.log(data);
-    // You can handle form submission logic here
-
     // Attempt to add food listing.
     addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList).then(function(result){
       //alert("Food listing added!");
@@ -143,22 +141,6 @@ const DonationForm = () => {
             name="donationMethod"
             defaultValue="nearby"
           />
-          {donationMethod === 'direct' && (
-            <Controller 
-              control={control}
-              render={({field: {onChange, onBlur, value}}) => (
-                <TextInput 
-                  placeholder='Food Bank Name' 
-                  style={styles.input} 
-                  onBlur={onBlur}
-                  onChangeText={value => onChange(value)}
-                  value={value}
-                /> 
-              )}
-              name="foodBankName"
-              rules={{required: "Please input the food bank's name"}}
-            />
-          )}
           <Controller 
             control={control}
             render={({field: {onChange, onBlur, value}}) => (

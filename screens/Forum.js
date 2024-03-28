@@ -8,7 +8,7 @@ const Forum = () => {
     return(
         
         <View>
-            <Text>forum</Text>
+            <Text>Forum ***to be implemented***</Text>
         </View>
 
     )

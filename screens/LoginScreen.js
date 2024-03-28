@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useContext } from 'react'
-import { StyleSheet, Text, View, Image, Pressable, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, Button, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import NavigationFoodBank from '../components/NavigationFoodBank'
 import { useForm, Controller } from 'react-hook-form'
@@ -17,7 +17,7 @@ const LoginScreen = () => {
         //data.email, data.password, data.selectedUserType
         dispatch({username: data.email, userType: data.selectedUserType})    // Update global state's username (username = data.email, ...)
 
-        alert(JSON.stringify(data));
+        Alert.alert("Logged in", "Sucessfully logged in!");
         
         if(data.selectedUserType == "donor"){
             navigation.navigate('DonorHome')
