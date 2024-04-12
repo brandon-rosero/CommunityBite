@@ -5,8 +5,6 @@ import { addFoodListing, getFoodListings } from "../database.js"
 
 const DonationForm = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
-  const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
   
   const onSubmit = (data) => {
     console.log(data);
