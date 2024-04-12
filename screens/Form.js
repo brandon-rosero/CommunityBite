@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, Pressable, ScrollView } from 'react-native';
+import DatePicker from 'react-native-datepicker';
+import TimePicker from 'react-native-datetimepicker';
 import { useForm, Controller } from 'react-hook-form';
 import { addFoodListing, getFoodListings } from "../database.js"
 
 const DonationForm = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date());
   
   const onSubmit = (data) => {
     console.log(data);
+    data.dropOffDate = date;
+    data.dropOffTime = time;
     // Attempt to add food listing.
     addFoodListing(data.fullname, data.number, data.donationType, data.address, data.latitude, data.longitude, data.donationMethod, data.itemList).then(function(result){
       //alert("Food listing added!");
@@ -121,6 +127,37 @@ const DonationForm = () => {
             name="longitude"
             rules={{required: "Please input longitude coordinate"}}
           />
+          <View style={styles.datePickerContainer}>
+            <Text style={styles.label}>Drop-off Date:</Text>
+            <DatePicker
+              style={styles.input}
+              date={date}
+              mode="date"
+              placeholder="Select date"
+              format="YYYY-MM-DD"
+              minDate={new Date()}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              customStyles={{
+                dateInput: styles.input,
+              }}
+              onDateChange={(date) => {
+                setDate(date);
+              }}
+            />
+          </View>
+          <View style={styles.timePickerContainer}>
+            <Text style={styles.label}>Drop-off Time:</Text>
+            <TimePicker
+              value={time}
+              mode="time"
+              display="clock"
+              onChange={(event, selectedTime) => {
+                const currentTime = selectedTime || time;
+                setTime(currentTime);
+              }}
+            />
+          </View>
           <Controller 
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
@@ -222,7 +259,13 @@ const styles = StyleSheet.create({
   coordinatesContainer:{
     flexDirection: 'row',
     marginBottom: 10,
-  }
+  },
+  datePickerContainer: {
+    marginBottom: 20,
+  },
+  timePickerContainer: {
+    marginBottom: 20,
+  },
 });
 
 export default DonationForm;
