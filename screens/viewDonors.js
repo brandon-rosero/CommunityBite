@@ -1,16 +1,26 @@
-import React, {useEffect, useState, useLayoutEffect} from 'react'
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import React, {useEffect, useState, useLayoutEffect, useMemo} from 'react'
+import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as geoLib from 'geolib'
 import { getFoodListings } from "../database.js"
+import Slider from '@react-native-community/slider';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 
 const ViewDonors = () => {
     
+    const navigation = useNavigation();
+
+    const [sliderState, setSliderState] = useState(5)
+
+    const snapPoints = useMemo(() => ['5%', '60%'], []);
+
     const [errorMsg, setErrorMsg] = useState();
     const [location, setLocation] = useState();
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
+
     const testMarkers = [
         {latitude: 41.874489, longitude: -87.650581, address: "940 W Harrison St, Chicago, IL 60607", name: "Rob Johnson"},  // UIC ARC
         {latitude: 41.864510, longitude: -87.647070, address: "1328 S Halsted St, Chicago, IL 60608", name: "Melissa Miles"},  // University Village Starbucks
@@ -18,7 +28,7 @@ const ViewDonors = () => {
         {latitude: 42.055809, longitude: -87.687408, address: "2100 Ridge Ave, Evanston, IL 60201", name: "Davy Jones"}
     ]
     //const testMarkers = [{latitude: 37.796586, longitude: -122.408054}, {latitude: 37.792264, longitude: -122.425848}, {latitude: 37.805435053804175, longitude: -122.28586767156946}, {latitude: 37.775806062819306, longitude: -122.40952275399093}]
-    
+    // 42.05718297570661, -87.67248758418448
     let lat = 41.871300
     let long = -87.649230
     
@@ -35,26 +45,31 @@ const ViewDonors = () => {
     //   });
     // }
 
-    useEffect(() => {
+    // useEffect(() => {
+        
+    //     setTimeout(() => {
 
-        const getPermissions = async () => {
+    //         const getPermissions = async () => {
 
-            let { status } = await Location.requestForegroundPermissionsAsync()
+    //             let { status } = await Location.requestForegroundPermissionsAsync()
+    
+    //             if (status !== 'granted') {
+    //                 setErrorMsg('Permission to access location was denied');
+    //                 return;
+    //             }
+    //             let currentLocation = await Location.getCurrentPositionAsync({})
+    //             setLocation(currentLocation);
+    //             setLatitude(currentLocation.coords.latitude);
+    //             setLongitude(currentLocation.coords.longitude);
+    //             //console.log(location)
+    //         }
+    
+    //         getPermissions();
 
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied');
-                return;
-            }
-            let currentLocation = await Location.getCurrentPositionAsync({})
-            setLocation(currentLocation);
-            setLatitude(currentLocation.coords.latitude);
-            setLongitude(currentLocation.coords.longitude);
-            //console.log(location)
-        }
 
-        getPermissions();
-
-    }, [location])
+    //     }, 5000)
+        
+    // }, [location])
 
     if(errorMsg){
         console.log("Error!");
@@ -83,32 +98,60 @@ const ViewDonors = () => {
                 }} 
                 
             >
-            {testMarkers.map((marker) =>(
+                {testMarkers.map((marker) =>(
 
-                geoLib.isPointWithinRadius({latitude: marker.latitude, longitude: marker.longitude},{latitude: lat, longitude: long},5000) ?
+                    geoLib.isPointWithinRadius({latitude: marker.latitude, longitude: marker.longitude},{latitude: lat, longitude: long}, sliderState*1609.34) ?
 
-                <Marker 
-                    coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                    title = {marker.name}
-                /> : null
-                
+                    <Marker 
+                        coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                        title = {marker.name}
+                        onPress={() => navigation.navigate('User Info', { name: marker.name })}
+                    /> : null
+                    
+                ))}
+                <Circle 
 
-            ))}
-            <Circle 
+                    center={{latitude: lat, longitude: long}}
+                    radius={sliderState*1609.34}
 
-                center={{latitude: lat, longitude: long}}
-                radius={5000}
+                />
+            </MapView>
+
+            <Slider 
+                style={{width: 200, height: 40}}
+                minimumValue={5}
+                maximumValue={50}
+                step={5}
+                value={sliderState}
+                onValueChange={(value) => setSliderState(value)}
+                maximumTrackTintColor='white'
+                minimumTrackTintColor='#F09B76'
 
             />
-            </MapView>
-            <View style={styles.locationsList}>
-                {testMarkers.map((marker, index) => 
-                    <View style={styles.foodListingContainer}>
-                        <Text>{index+1}. {marker.name} - {marker.address}</Text>
-                        <Text>{geoLib.getDistance({latitude: lat, longitude: long}, {latitude: marker.latitude, longitude: marker.longitude})} meters away</Text>
-                    </View>
-                )}
-            </View>
+
+            <Text> {sliderState} miles</Text>
+
+            <BottomSheet
+                index={0}
+                snapPoints={snapPoints}
+            >
+                <BottomSheetScrollView contentContainerStyle={styles.locationsList}>
+                    
+                    {testMarkers.map((marker) => 
+                    
+                        geoLib.isPointWithinRadius({latitude: marker.latitude, longitude: marker.longitude},{latitude: lat, longitude: long}, sliderState*1609.34) ?
+                        
+                        <TouchableOpacity onPress={() => navigation.navigate('User Info', { name: marker.name })}>
+                            <View style={styles.foodListingContainer}>
+                                <Text style={{fontWeight: "bold", fontSize: 13}}>{marker.name} - {marker.address}</Text>
+                                <Text>{(geoLib.getDistance({latitude: lat, longitude: long}, {latitude: marker.latitude, longitude: marker.longitude})*0.000621371).toFixed(2)} miles away</Text>
+                            </View> 
+                        </TouchableOpacity> : null
+                        
+                    )}
+
+                </BottomSheetScrollView>
+            </BottomSheet>
                   
         </View>
 
@@ -126,28 +169,36 @@ const styles = StyleSheet.create({
             height: 0   
         },
         shadowRadius: 2,
-        //height: "100%",
+        height: "100%",
         
     },
     mapStyle: {
         width: '100%',
-        height: "60%",
+        height: "85%",
         borderRadius: 20,
+        marginBottom: 5,
+        
         
 
     },
     locationsList: {
 
-        backgroundColor: "white",
         borderRadius: 20,
         width: '100%',
-        height: "38.5%",
+        height: "30%",
         marginTop: 10,
         alignItems: "center",
+        backgroundColor: "white"
        
     },
     foodListingContainer: {
-        marginTop: 10,
+        
+        padding: 20,
+        borderBottomColor: "black",
+        borderBottomWidth: .5,
+        alignItems: "center", 
+        width: 400, 
+        
     }
 
 })
