@@ -5,14 +5,17 @@ import NavigationFoodBank from './components/NavigationFoodBank';
 import NavigationDonor from './components/NavigationDonor'
 import {useState, React} from "react"
 import {GlobalProvider} from "./globalContext"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 function App() {
   const [username, setUsername] = useState("");
   
   return ( 
-    <GlobalProvider>
-      <NavigationFoodBank />
-    </GlobalProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <GlobalProvider>
+        <NavigationFoodBank />
+      </GlobalProvider>
+    </GestureHandlerRootView>
   );
 }
 
