@@ -222,7 +222,13 @@ const styles = StyleSheet.create({
   coordinatesContainer:{
     flexDirection: 'row',
     marginBottom: 10,
-  }
+  },
+  datePickerContainer: {
+    marginBottom: 20,
+  },
+  timePickerContainer: {
+    marginBottom: 20,
+  },
 });
 
 export default DonationForm;
