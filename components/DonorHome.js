@@ -5,7 +5,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Messages from '../screens/Messages'
-import Forum from '../screens/Forum'
 import ViewDonors from '../screens/viewDonors';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
@@ -50,14 +49,14 @@ const DonorHome = () => {
     
         <Tab.Navigator screenOptions={({route}) => ({
             tabBarIcon: () => {
-                if(route.name === 'Messages'){
+                if(route.name === 'View Food Banks'){
 
-                    return <Image source={require('../assets/messagesIcon.png')} style={styles.barIcon}/>
+                    return <Image source={require('../assets/viewDonorsIcon.png')} style={styles.barIcon}/>
 
                 }
-                else if(route.name === 'Forum'){
+                else if(route.name === 'Search'){
 
-                    return <Image source={require('../assets/forumIcon.png')} style={styles.barIcon}/>
+                    return <Image source={require('../assets/searchIcon.png')} style={styles.barIcon}/>
 
                 }
                 else if(route.name === 'Donate'){
@@ -89,9 +88,10 @@ const DonorHome = () => {
    
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
-            <Tab.Screen name="Messages" component={Messages} />
+            <Tab.Screen name="Search" component={Messages} />
+            <Tab.Screen name="View Food Banks" component={ViewDonors} />
             <Tab.Screen name="Donate" component={DonationForm} />
-            <Tab.Screen name="Forum" component={Forum} />
+            
         </Tab.Navigator>       
 
     )
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
     },
     barIcon: {
 
-        height: 38,
-        width: 38,
+        height: 34,
+        width: 34,
 
     },
     settingsIcon: {

@@ -5,13 +5,13 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Messages from '../screens/Messages'
-import Forum from '../screens/Forum'
 import ViewDonors from '../screens/viewDonors';
 import Home from '../screens/Home'
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
 import DonorForm from '../screens/DonorForm';
 import Form from '../screens/Form'
+import DonationLog from '../screens/DonationLog';
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -45,19 +45,21 @@ function Drawers() {
 
 const FoodBankHome = () => {
 
+    
+
     return(
     
         <Tab.Navigator screenOptions={({route}) => ({
             tabBarIcon: () => {
-                if(route.name === 'Messages'){
+                if(route.name === 'Food Inventory'){
 
-                    return <Image source={require('../assets/messagesIcon.png')} style={styles.barIcon}/>
+                    return <Image source={require('../assets/inventory.png')} style={styles.barIcon}/>
 
                 }
-                else if(route.name === 'Forum'){
+                else if(route.name === 'Donation History'){
 
-                    return <Image source={require('../assets/forumIcon.png')} style={styles.barIcon}/>
-
+                    return <Image source={require('../assets/historyLog.png')} style={styles.barIcon}/>
+                    
                 }
                 else if(route.name === 'Nearby Donors'){
 
@@ -73,7 +75,7 @@ const FoodBankHome = () => {
             tabBarStyle: {
 
                 backgroundColor: '#F09B76',
-                height: 100
+                height: 100,
 
             },
 
@@ -88,9 +90,9 @@ const FoodBankHome = () => {
    
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
-            <Tab.Screen name="Messages" component={Messages} />
+            <Tab.Screen name="Food Inventory" component={DonationLog} />
             <Tab.Screen name="Nearby Donors" component={ViewDonors} />
-            <Tab.Screen name="Forum" component={Forum} />
+            <Tab.Screen name="Donation History" component={DonationLog} />
         </Tab.Navigator>       
 
     )
@@ -112,8 +114,8 @@ const styles = StyleSheet.create({
     },
     barIcon: {
 
-        height: 38,
-        width: 38,
+        height: 34,
+        width: 34,
 
     },
     settingsIcon: {

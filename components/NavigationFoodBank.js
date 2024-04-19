@@ -5,7 +5,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import Messages from '../screens/Messages'
-import Forum from '../screens/Forum'
 import FoodBankHome from './FoodBankHome'
 import DonorHome from './DonorHome'
 import ViewDonors from '../screens/viewDonors';
