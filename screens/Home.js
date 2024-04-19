@@ -1,12 +1,37 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { StyleSheet, View, Image, Text, ScrollView} from 'react-native';
+import { StyleSheet, View, Image, Text, ScrollView, Pressable} from 'react-native';
 import { useGlobalState } from '../globalContext';
+import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
 
   const [state, dispatch] = useGlobalState(); // Global state
   const [usernameText, setUsernameText] = useState(state.username) // Stores username text
   const [userTypeText, setUserTypeText] = useState(state.userType) // Stores user type text
+
+  const navigation = useNavigation();
+
+    useLayoutEffect(() => {
+
+        navigation.setOptions({
+
+            headerLeft: () => (
+
+                <Pressable onPress={() => navigation.openDrawer()}>
+                    <Image source={require('../assets/userIcon.png')} style={styles.userIcon}/>
+                </Pressable>
+
+            ),
+            
+            headerStyle:{
+
+                height: 125,
+        
+            }
+
+        })
+
+    }, [])
 
   return (
     <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flex: 1}}>
@@ -119,6 +144,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'left',
     marginBottom: 8,
+  },
+  userIcon: {
+
+    height: 24,
+    width: 24,
+    left: 30
+
   },
 });
 

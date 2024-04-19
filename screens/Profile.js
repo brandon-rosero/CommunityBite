@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, Text, View, Image, Pressable } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import { useGlobalState } from '../globalContext';
 
+//  *********** NOT USED ***********
+
 const Profile = () => {
 
     const [state, dispatch] = useGlobalState(); // Global state

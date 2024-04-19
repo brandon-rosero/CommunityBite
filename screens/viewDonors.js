@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useLayoutEffect, useMemo} from 'react'
-import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity, Button } from 'react-native';
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as geoLib from 'geolib'
@@ -7,6 +7,7 @@ import { getFoodListings } from "../database.js"
 import Slider from '@react-native-community/slider';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const ViewDonors = () => {
     
@@ -131,6 +132,8 @@ const ViewDonors = () => {
 
             <Text> {sliderState} miles</Text>
 
+            
+
             <BottomSheet
                 index={0}
                 snapPoints={snapPoints}
@@ -141,17 +144,23 @@ const ViewDonors = () => {
                     
                         geoLib.isPointWithinRadius({latitude: marker.latitude, longitude: marker.longitude},{latitude: lat, longitude: long}, sliderState*1609.34) ?
                         
-                        <TouchableOpacity onPress={() => navigation.navigate('User Info', { name: marker.name })}>
+                        <TouchableHighlight underlayColor="#DDDDDD" onPress={() => navigation.navigate('User Info', { name: marker.name })}>
                             <View style={styles.foodListingContainer}>
                                 <Text style={{fontWeight: "bold", fontSize: 13}}>{marker.name} - {marker.address}</Text>
                                 <Text>{(geoLib.getDistance({latitude: lat, longitude: long}, {latitude: marker.latitude, longitude: marker.longitude})*0.000621371).toFixed(2)} miles away</Text>
                             </View> 
-                        </TouchableOpacity> : null
+                        </TouchableHighlight> : null
                         
                     )}
 
                 </BottomSheetScrollView>
             </BottomSheet>
+
+            <View style={styles.refreshBtn}>
+                <Button title="Refresh" />
+
+            </View>
+            
                   
         </View>
 
@@ -199,6 +208,11 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         width: 400, 
         
+    },
+    refreshBtn : {
+
+        bottom: 100
+
     }
 
 })
