@@ -3,11 +3,13 @@ import { StyleSheet, Text, View, Image, Pressable, TouchableOpacity, Button } fr
 import MapView, {Circle, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as geoLib from 'geolib'
-import { getFoodListings } from "../database.js"
+//import { getFoodListings } from "../database.js"
 import Slider from '@react-native-community/slider';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { getFoodListings } from "../database.js"
+import { useGlobalState } from '../globalContext';
 
 const ViewDonors = () => {
     
@@ -17,34 +19,45 @@ const ViewDonors = () => {
 
     const snapPoints = useMemo(() => ['5%', '60%'], []);
 
+    const [state, dispatch] = useGlobalState(); // Global state
+    const [foodListings, setFoodListings] = useState(state.foodListingsList) // Stores food listings
+    const [retrieveFoodListings, setRetrieveFoodListings] = useState(state.getFoodListings) // Tells when to get food listings
+
     const [errorMsg, setErrorMsg] = useState();
     const [location, setLocation] = useState();
     const [latitude, setLatitude] = useState();
     const [longitude, setLongitude] = useState();
 
-    const testMarkers = [
-        {latitude: 41.874489, longitude: -87.650581, address: "940 W Harrison St, Chicago, IL 60607", name: "Rob Johnson"},  // UIC ARC
-        {latitude: 41.864510, longitude: -87.647070, address: "1328 S Halsted St, Chicago, IL 60608", name: "Melissa Miles"},  // University Village Starbucks
-        {latitude: 41.867970, longitude: -87.642090, address: "1141 S Jefferson St, Chicago, IL 60607", name: "Bob Jones"}, // Manny's Cafeteria & Delicatessen
-        {latitude: 42.055809, longitude: -87.687408, address: "2100 Ridge Ave, Evanston, IL 60201", name: "Davy Jones"}
-    ]
-    //const testMarkers = [{latitude: 37.796586, longitude: -122.408054}, {latitude: 37.792264, longitude: -122.425848}, {latitude: 37.805435053804175, longitude: -122.28586767156946}, {latitude: 37.775806062819306, longitude: -122.40952275399093}]
-    // 42.05718297570661, -87.67248758418448
+    const testMarkers = foodListings
+    // const testMarkers = [
+    //     {latitude: 41.874489, longitude: -87.650581, address: "940 W Harrison St, Chicago, IL 60607", name: "Rob Johnson"},  // UIC ARC
+    //     {latitude: 41.864510, longitude: -87.647070, address: "1328 S Halsted St, Chicago, IL 60608", name: "Melissa Miles"},  // University Village Starbucks
+    //     {latitude: 41.867970, longitude: -87.642090, address: "1141 S Jefferson St, Chicago, IL 60607", name: "Bob Jones"}, // Manny's Cafeteria & Delicatessen
+    //     {latitude: 42.055809, longitude: -87.687408, address: "2100 Ridge Ave, Evanston, IL 60201", name: "Davy Jones"}
+    // ]
     let lat = 41.871300
     let long = -87.649230
     
-    // Function getMarkers() - Retrieves all food listings from the database.
-    //   const getMarkers = () => {
-    //   console.log("Calling getMarkers")
-    //   foodListingArray = []
-    //   getFoodListings().then(function(result){
-    //       // Each element in foodListingArray is contained in an array: [latitude, longitude, fullName, phoneNumber]
-    //       foodListingArray = result
-    //       foodListingArray.forEach(element => console.log(element))
-    //   }).catch(function(error){
-    //       console.log(error)
-    //   });
-    // }
+//Function refreshMarkers() - Updates foodListingsList to get all food listings from the database.
+    const refreshMarkers = () => {
+    //console.log("Calling refreshMarkers")
+    //if (state.getFoodListings == true){   // If-statement here if calling function infinitely
+    console.log("Refreshing food listings...")
+    foodListingArray = []
+    getFoodListings().then(function(result){
+        // Each element in foodListingArray is contained in an array: [latitude, longitude, fullName, phoneNumber]
+        foodListingArray = result
+        foodListingArray.forEach(element => console.log(element))
+
+        dispatch({foodListingsList: foodListingArray, getFoodListings: false})
+        setRetrieveFoodListings(false);
+        setFoodListings(foodListingArray)
+    }).catch(function(error){
+        console.log(error)
+    });
+    console.log("Refreshed food listings!")
+    //}
+    }
 
     // useEffect(() => {
         
@@ -157,8 +170,11 @@ const ViewDonors = () => {
             </BottomSheet>
 
             <View style={styles.refreshBtn}>
-                <Button title="Refresh" />
-
+                <Button 
+                    onPress={() => refreshMarkers()}
+                    title="Refresh"
+                >
+                </Button>
             </View>
             
                   
