@@ -15,6 +15,7 @@ import SignUpScreen from '../screens/SignUpScreen.js'
 import {useContext} from 'react'
 import {globalContext} from '../globalContext.js'
 import UserInfo from '../screens/UserInfo'
+import InventoryQuantity from '../screens/InventoryQuantity';
 
 const Stack = createNativeStackNavigator()
 
@@ -27,6 +28,7 @@ function StackScreens() {
             <Stack.Screen name="FoodBankHome" component={FoodBankHome} options={{headerShown:false}} />
             <Stack.Screen name="DonorHome" component={DonorHome} options={{headerShown:false}} />
             <Stack.Screen name="User Info" component={UserInfo} options={{headerShown:true}} />
+            <Stack.Screen name="Change Quantity" component={InventoryQuantity} options={{headerShown:true}} />
             <Stack.Screen name="Sign Up" component={SignUpScreen} options={{headerShown:false}} />
         </Stack.Navigator>
 

@@ -12,6 +12,7 @@ import Settings from '../screens/Settings'
 import DonorForm from '../screens/DonorForm';
 import Form from '../screens/Form'
 import DonationLog from '../screens/DonationLog';
+import Inventory from '../screens/Inventory';
 
 const Drawer = createDrawerNavigator()
 const Stack = createNativeStackNavigator()
@@ -90,7 +91,7 @@ const FoodBankHome = () => {
    
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
-            <Tab.Screen name="Food Inventory" component={DonationLog} />
+            <Tab.Screen name="Food Inventory" component={Inventory} />
             <Tab.Screen name="Nearby Donors" component={ViewDonors} />
             <Tab.Screen name="Donation History" component={DonationLog} />
         </Tab.Navigator>       

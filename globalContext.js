@@ -12,11 +12,24 @@ const globalState = {
     foodbankList: []
 };
 
+
 const GlobalContext = React.createContext(globalState)
 const DispatchGlobalContext = React.createContext(undefined)
 
+const InventoryContext = React.createContext()
+
 function GlobalProvider({children}){
     //const [username, setUserName] = useState("");
+
+    const [products, setProducts] = useState([
+
+        { productName: 'apple', quantity: 0 },
+        { productName: 'potato', quantity: 0 },
+        { productName: 'carrot', quantity: 0 },
+        { productName: 'onion', quantity: 0 },
+        { productName: 'banana', quantity: 0 },
+    
+    ])
 
     const [state, dispatch] = React.useReducer(
         (state, newValue) => ({ ...state, ...newValue }),
@@ -24,11 +37,14 @@ function GlobalProvider({children}){
     );
 
     return(
-        <GlobalContext.Provider value={state}>
-            <DispatchGlobalContext.Provider value={dispatch}>
-                {children}
-            </DispatchGlobalContext.Provider>
-        </GlobalContext.Provider>
+        <InventoryContext.Provider value={[products, setProducts]}>
+            <GlobalContext.Provider value={state}>
+                <DispatchGlobalContext.Provider value={dispatch}>
+                    {children}
+                </DispatchGlobalContext.Provider>
+            </GlobalContext.Provider>
+        </InventoryContext.Provider>
+        
     );
 };
 
@@ -37,4 +53,4 @@ const useGlobalState = () => [
     React.useContext(DispatchGlobalContext)
 ];
 
-export {GlobalContext, DispatchGlobalContext, GlobalProvider, useGlobalState}
+export {GlobalContext, DispatchGlobalContext, InventoryContext, GlobalProvider, useGlobalState}
