@@ -6,12 +6,14 @@ const UserInfo = ( { route } ) => {
     
     const navigation = useNavigation();
 
-    const { name } = route.params;
+    const {name, address, items} = route.params;
 
     return(
 
         <View style={styles.wrapper}>
             <Text>{name}</Text>
+            <Text>{address}</Text>
+            <Text>{items}</Text>
         </View>
 
     )

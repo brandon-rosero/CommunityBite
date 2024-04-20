@@ -54,9 +54,10 @@ export async function getFoodListings(){
      longitudeData = parseFloat(doc.data().longitude)
      addressData = doc.data().address
      fullNameData = doc.data().fullname
+     itemsData = doc.data().listofitems
 
      // Add entry to the food listing array
-     foodListingArray.push({latitude: latitudeData, longitude: longitudeData, address: addressData, name: fullNameData})
+     foodListingArray.push({latitude: latitudeData, longitude: longitudeData, address: addressData, name: fullNameData, items: itemsData})
     });
     // Display listings
     foodListingArray.forEach(element => console.log(element))
