@@ -64,6 +64,29 @@ export async function getFoodListings(){
     return foodListingArray   // Return array
 }
 
+// getFoodBanks() - Retrieves all entries in 'foodbankList'
+// Parameter(s): N/A
+// Return Value(s): 2D-array of food listings.
+export async function getFoodBanks(){ 
+  foodbankArray = [] // Stores food listing entries in an array.
+
+  console.log("-- FOOD BANK LIST -- ")
+  const querySnapshot = await getDocs(collection(db, "foodbankList"));  // Get QuerySnapshot of 'foodbankList'
+    querySnapshot.forEach((doc) =>{ // Print each food bank to console.
+     // Store document data into local variables (can add more later)
+     latitudeData = parseFloat(doc.data().latitude)
+     longitudeData = parseFloat(doc.data().longitude)
+     addressData = doc.data().address
+     foodbankName = doc.data().foodbankName
+
+     // Add entry to the food listing array
+     foodbankArray.push({latitude: latitudeData, longitude: longitudeData, address: addressData, name: foodbankName})
+    });
+    // Display food banks
+    foodbankArray.forEach(element => console.log(element))
+    return foodbankArray   // Return array
+}
+
 // addForumPost() - Add message to 'forumMessages' collection.
 // Parameter(s): string _user, string _subject, string _message
 // Return value(s): N/A

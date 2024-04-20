@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {createDrawerNavigator} from '@react-navigation/drawer'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Messages from '../screens/Messages'
-import ViewDonors from '../screens/viewDonors';
+import ViewFoodBanks from '../screens/viewFoodBanks';
 import Profile from '../screens/Profile'
 import Settings from '../screens/Settings'  
 import Home from '../screens/Home'
@@ -89,7 +89,7 @@ const DonorHome = () => {
         })}>
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
             <Tab.Screen name="Search" component={Messages} />
-            <Tab.Screen name="View Food Banks" component={ViewDonors} />
+            <Tab.Screen name="View Food Banks" component={ViewFoodBanks} />
             <Tab.Screen name="Donate" component={DonationForm} />
             
         </Tab.Navigator>       

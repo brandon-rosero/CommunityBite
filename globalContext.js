@@ -7,7 +7,9 @@ const globalState = {
     userType: "",
     messages: [],
     getFoodListings: true,  // Change to true later
-    foodListingsList: []
+    foodListingsList: [],
+    getFoodBanks: true,  // Change to true later
+    foodbankList: []
 };
 
 const GlobalContext = React.createContext(globalState)
