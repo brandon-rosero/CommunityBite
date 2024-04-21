@@ -119,7 +119,7 @@ const ViewDonors = () => {
                     <Marker 
                         coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
                         title = {marker.name}
-                        onPress={() => navigation.navigate('User Info', {name: marker.name, address: marker.address, items: marker.items})}
+                        onPress={() => navigation.navigate('User Info', {name: marker.name, address: marker.address, items: marker.items, phone: marker.phonenumber})}
                     /> : null
                     
                 ))}

@@ -6,7 +6,7 @@ const UserInfo = ( { route } ) => {
     
     const navigation = useNavigation();
 
-    const {name, address, items} = route.params;
+    const {name, address, items, phone} = route.params;
 
     return(
 
@@ -15,6 +15,8 @@ const UserInfo = ( { route } ) => {
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.fieldLabel}>Address:</Text>
             <Text style={styles.address}>{address}</Text>
+            <Text style={styles.fieldLabel}>Phone Number:</Text>
+            <Text style={styles.address}>{phone}</Text>
             <Text style={styles.fieldLabel}>Items:</Text>
             <Text style={styles.items}>{items}</Text>
         </View>
