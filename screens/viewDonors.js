@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     },
     refreshBtn : {
 
-        bottom: 100
+        bottom: 625
 
     }
 

@@ -31,17 +31,6 @@ function Drawers() {
 
     )
 
-    // return (
-
-    //     <Drawer.Navigator>
-
-    //         <Drawer.Screen name="Profile" component={Profile} options={{headerShown:true}} />
-    //         <Drawer.Screen name="Settings" component={Settings} options={{headerShown:true}} />
-            
-    //     </Drawer.Navigator>
-
-    // )
-
 }
 
 const FoodBankHome = () => {
