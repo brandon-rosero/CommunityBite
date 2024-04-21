@@ -57,7 +57,7 @@ const FoodBankHome = () => {
                     return <Image source={require('../assets/inventory.png')} style={styles.barIcon}/>
 
                 }
-                else if(route.name === 'Donation History'){
+                else if(route.name === 'Pending Donations'){
 
                     return <Image source={require('../assets/historyLog.png')} style={styles.barIcon}/>
                     
@@ -93,7 +93,7 @@ const FoodBankHome = () => {
             <Tab.Screen name="Home" component={Drawers} options={headerOptions}/>
             <Tab.Screen name="Food Inventory" component={Inventory} />
             <Tab.Screen name="Nearby Donors" component={ViewDonors} />
-            <Tab.Screen name="Donation History" component={DonationLog} />
+            <Tab.Screen name="Pending Donations" component={DonationLog} />
         </Tab.Navigator>       
 
     )
