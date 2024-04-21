@@ -10,10 +10,10 @@ const UserInfo = ( { route } ) => {
 
     return(
 
-        <View style={styles.wrapper}>
-            <Text>{name}</Text>
-            <Text>{address}</Text>
-            <Text>{items}</Text>
+        <View style={styles.container}>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.address}>{address}</Text>
+            <Text style={styles.items}>{items}</Text>
         </View>
 
     )
@@ -21,15 +21,27 @@ const UserInfo = ( { route } ) => {
 
 const styles = StyleSheet.create({
 
-    wrapper : {
-
-        alignContent: "center", 
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 100
-        
-
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#ffffff',
+    },
+    name: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    address: {
+        fontSize: 18,
+        marginBottom: 10,
+    },
+    items: {
+        fontSize: 16,
+        marginTop: 20,
     }
+    
 
 
 })
