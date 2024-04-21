@@ -50,7 +50,7 @@ const Messages = () => {
                 />
             </SafeAreaView>
 
-            <ScrollView showsVerticalScrollIndicator={false} style={{height: "100%"}}>
+            <ScrollView showsVerticalScrollIndicator={false} >
                 <View style={styles.fbContainer}>
                     {foodbankInfo.map((fbInfo) => 
                         <View style={styles.fbDetailsContainer}>
