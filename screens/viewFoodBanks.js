@@ -119,7 +119,7 @@ const ViewDonors = () => {
                     <Marker 
                         coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
                         title = {marker.name}
-                        //onPress={() => navigation.navigate('User Info', {name: marker.name, address: marker.address, items: marker.items})}
+                        onPress={() => navigation.navigate('User Info', {name: marker.name, address: marker.address, items: marker.items, phone: marker.phonenumber})}
                     /> : null
                     
                 ))}
@@ -157,7 +157,7 @@ const ViewDonors = () => {
                     
                         geoLib.isPointWithinRadius({latitude: marker.latitude, longitude: marker.longitude},{latitude: lat, longitude: long}, sliderState*1609.34) ?
                         
-                        <TouchableHighlight underlayColor="#DDDDDD" onPress={() => navigation.navigate('User Info', { name: marker.name })}>
+                        <TouchableHighlight underlayColor="#DDDDDD" onPress={() => navigation.navigate('User Info', {name: marker.name, address: marker.address, items: marker.items, phone: marker.phonenumber})}>
                             <View style={styles.foodListingContainer}>
                                 <Text style={{fontWeight: "bold", fontSize: 13}}>{marker.name} - {marker.address}</Text>
                                 <Text>{(geoLib.getDistance({latitude: lat, longitude: long}, {latitude: marker.latitude, longitude: marker.longitude})*0.000621371).toFixed(2)} miles away</Text>
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
         
     },
     refreshBtn : {
-        bottom: 625
+        bottom: 625 
     }
 
 })
